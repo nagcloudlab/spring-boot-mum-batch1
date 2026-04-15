@@ -1,17 +1,29 @@
 package com.example;
 
+import com.example.config.DatasourceConfiguration;
+import com.example.config.JdbcTemplateConfiguration;
 import org.slf4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.example.config.TransferServiceConfiguration;
 import com.example.service.TransferService;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Main application class for the transfer service.
  * authors: team-3
  */
 
+@Configuration
+@EnableTransactionManagement
+@Import({
+        DatasourceConfiguration.class,
+        JdbcTemplateConfiguration.class
+})
+@ComponentScan(basePackages = "com.example")
 public class Application {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger("txr-service");
@@ -26,7 +38,7 @@ public class Application {
         logger.info("-".repeat(50));
         // create & wire components
         ConfigurableApplicationContext context = null;
-        context = new AnnotationConfigApplicationContext(TransferServiceConfiguration.class);
+        context = new AnnotationConfigApplicationContext(Application.class);
 
         logger.info("Transfer service initialized successfully.");
         logger.info("-".repeat(50));
