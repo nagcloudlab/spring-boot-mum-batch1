@@ -1,0 +1,21 @@
+
+
+
+service : transfer-service
+------------------------------
+
+
+step-1: know your data model(s)
+
+    - Account
+
+step-2: define layer(s)
+
+    a. data/repository layer ( persistence logic)
+            - JdbcAccountRepository 
+    b. service layer ( processing logic)
+            - ImpsTransferService
+    
+----
+
+mvn compile exec:java -Dexec.mainClass="com.example.Application"
