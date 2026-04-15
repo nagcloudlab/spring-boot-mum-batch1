@@ -1,5 +1,11 @@
 package com.example.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 
 import com.example.model.Account;
@@ -15,22 +21,68 @@ public class JdbcAccountRepository implements AccountRepository {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger("txr-service");
 
-    public JdbcAccountRepository() {
-        logger.info("JdbcAccountRepository instance created.");
+    private DataSource dataSource;
+
+    public JdbcAccountRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+        logger.info("JdbcAccountRepository initialized with DataSource: {}", dataSource);
     }
 
     public Account findByNumber(String number) {
         logger.info("Finding account by number: {}", number);
         // SQL query to find account by number
-        // For demonstration, returning a dummy account
-        return new Account(number, "John Doe", 1000.0);
+        String sql = "SELECT * FROM accounts WHERE number = ?";
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, number);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            Account account = new Account(
+                    rs.getString("number"),
+                    rs.getString("holder_name"),
+                    rs.getDouble("balance"));
+            logger.info("Account found: {}", account);
+            return account;
+        } catch (Exception e) {
+            logger.error("Error finding account by number: {}", number, e);
+            throw new RuntimeException("Error finding account by number: " + number, e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    logger.error("Error closing connection", e);
+                }
+            }
+        }
     }
 
     public void update(Account account) {
         logger.info("Updating account: {}", account);
-        // SQL query to update account details
-        // For demonstration, printing the updated account
-        System.out.println("Updating account: " + account);
+        // SQL query to update account balance
+        String sql = "UPDATE accounts SET balance = ? WHERE number = ?";
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1, account.getBalance());
+            preparedStatement.setString(2, account.getNumber());
+            int rowsUpdated = preparedStatement.executeUpdate();
+            logger.info("Account updated: {}, rows affected: {}", account, rowsUpdated);
+        } catch (Exception e) {
+            logger.error("Error updating account: {}", account, e);
+            throw new RuntimeException("Error updating account: " + account, e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    logger.error("Error closing connection", e);
+                }
+            }
+        }
     }
 
 }

@@ -5,9 +5,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.example.config.TransferServiceConfiguration;
-import com.example.repository.AccountRepository;
-import com.example.repository.AccountRepositoryFactory;
-import com.example.service.ImpsTransferService;
 import com.example.service.TransferService;
 
 /**
@@ -37,9 +34,9 @@ public class Application {
         // Use case execution phase
         // ------------------------------------
         TransferService transferService = context.getBean(TransferService.class);
-        transferService.transfer("1234567890", "0987654321", 1000.00);
-        logger.info("-".repeat(25));
-        transferService.transfer("1234567890", "0987654321", 500.00);
+        transferService.transfer("0987654321", "1234567890", 1000.00);
+        // logger.info("-".repeat(25));
+        // transferService.transfer("1234567890", "0987654321", 500.00);
 
         logger.info("-".repeat(50));
         // -----------------------------------

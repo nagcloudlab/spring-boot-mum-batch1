@@ -15,14 +15,14 @@ service : transfer-service
 ----
 run application
 
-mvn clean compile exec:java -Dexec.mainClass="com.example.Application"
+mvn clean compile exec:java "-Dexec.mainClass=com.example.Application"
 
 ---
 
 design issues:
 ----------------
 
--> tight b/w ImpsTransferService and JdbcAccountRepository
+-> tight-coupling b/w ImpsTransferService and JdbcAccountRepository
 
     -> can't extend to other types of repositories (e.g. JPA, MongoDB) 
        without changing the service code
@@ -86,3 +86,23 @@ SOLID principles
 -> Dependency Inversion Principle (DIP)
     - high-level modules should not depend on low-level modules; both should depend on abstractions
     - by depending on interfaces rather than concrete implementations, we can achieve better modularity and flexibility    
+
+
+
+---
+
+create postgresql db container using docker
+
+docker run --name postgres-container -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+docker container ls
+docker exec -it postgres-container psql -U postgres
+CREATE TABLE accounts (
+    number VARCHAR(20) PRIMARY KEY,
+    holder_name VARCHAR(100) NOT NULL,
+    balance DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO accounts (number, holder_name, balance) VALUES ('1234567890', 'John Doe', 1000.00);
+INSERT INTO accounts (number, holder_name, balance) VALUES ('0987654321', 'Jane Smith', 2000.00);
+
+select * from accounts;

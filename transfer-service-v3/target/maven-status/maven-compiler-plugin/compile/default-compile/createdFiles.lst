@@ -1,7 +1,5 @@
 com/example/service/TransferService.class
-com/example/repository/AccountRepositoryFactory.class
 com/example/Application.class
-com/example/repository/JpaAccountRepository.class
 com/example/repository/AccountRepository.class
 com/example/repository/JdbcAccountRepository.class
 com/example/model/Account.class
