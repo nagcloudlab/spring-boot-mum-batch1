@@ -1,7 +1,10 @@
 package com.example;
 
 import org.slf4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.example.config.TransferServiceConfiguration;
 import com.example.repository.AccountRepository;
 import com.example.repository.AccountRepositoryFactory;
 import com.example.service.ImpsTransferService;
@@ -24,17 +27,16 @@ public class Application {
         // Init / boot phase
         // ------------------------------------
         logger.info("-".repeat(50));
-        // creating components and wiring them together
-        AccountRepository jdbAccountRepository = AccountRepositoryFactory.createAccountRepository("jdbc");
-        // AccountRepository jpaAccountRepository =
-        // AccountRepositoryFactory.createAccountRepository("jpa");
-        TransferService transferService = new ImpsTransferService(jdbAccountRepository);
+        // create & wire components
+        ConfigurableApplicationContext context = null;
+        context = new AnnotationConfigApplicationContext(TransferServiceConfiguration.class);
 
         logger.info("Transfer service initialized successfully.");
         logger.info("-".repeat(50));
         // -----------------------------------
         // Use case execution phase
         // ------------------------------------
+        TransferService transferService = context.getBean(TransferService.class);
         transferService.transfer("1234567890", "0987654321", 1000.00);
         logger.info("-".repeat(25));
         transferService.transfer("1234567890", "0987654321", 500.00);
@@ -45,6 +47,7 @@ public class Application {
         // ------------------------------------
         // perform any cleanup if necessary (e.g., closing database connections)
         logger.info("Shutting down the transfer service application...");
+        context.close();
         logger.info("-".repeat(50));
     }
 }
