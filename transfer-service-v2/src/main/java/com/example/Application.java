@@ -2,6 +2,8 @@ package com.example;
 
 import org.slf4j.Logger;
 
+import com.example.repository.AccountRepository;
+import com.example.repository.AccountRepositoryFactory;
 import com.example.service.ImpsTransferService;
 
 /**
@@ -22,7 +24,9 @@ public class Application {
         // ------------------------------------
         logger.info("-".repeat(50));
         // creating components and wiring them together
-        ImpsTransferService transferService = new ImpsTransferService();
+        AccountRepository jdbAccountRepository = AccountRepositoryFactory.createAccountRepository("jdbc");
+        AccountRepository jpaAccountRepository = AccountRepositoryFactory.createAccountRepository("jpa");
+        ImpsTransferService transferService = new ImpsTransferService(jpaAccountRepository);
 
         logger.info("Transfer service initialized successfully.");
         logger.info("-".repeat(50));

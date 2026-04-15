@@ -3,7 +3,7 @@ package com.example.service;
 import org.slf4j.Logger;
 
 import com.example.model.Account;
-import com.example.repository.JdbcAccountRepository;
+import com.example.repository.AccountRepository;
 
 /**
  * 
@@ -16,14 +16,17 @@ public class ImpsTransferService {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger("txr-service");
 
-    public ImpsTransferService() {
-        logger.info("ImpsTransferService instance created.");
+    private AccountRepository accountRepository;
+
+    public ImpsTransferService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+        logger.info("ImpsTransferService instance created with AccountRepository: {}",
+                accountRepository.getClass().getSimpleName());
     }
 
     public void transfer(String fromAccountNumber, String toAccountNumber, double amount) {
         logger.info("Initiating transfer of amount {} from account {} to account {}", amount, fromAccountNumber,
                 toAccountNumber);
-        JdbcAccountRepository accountRepository = new JdbcAccountRepository();
         // step-1: Load accounts from the repository
         Account fromAccount = accountRepository.findByNumber(fromAccountNumber);
         Account toAccount = accountRepository.findByNumber(toAccountNumber);

@@ -4,18 +4,85 @@
 service : transfer-service
 ------------------------------
 
-
-step-1: know your data model(s)
-
+-> define domain model
     - Account
-
-step-2: define layer(s)
-
+-> define layer(s)
     a. data/repository layer ( persistence logic)
-            - JdbcAccountRepository 
+        - JdbcAccountRepository 
     b. service layer ( processing logic)
-            - ImpsTransferService
+        - ImpsTransferService
     
 ----
+run application
 
-mvn compile exec:java -Dexec.mainClass="com.example.Application"
+mvn clean compile exec:java -Dexec.mainClass="com.example.Application"
+
+---
+
+design issues:
+----------------
+
+-> tight b/w ImpsTransferService and JdbcAccountRepository
+
+    -> can't extend to other types of repositories (e.g. JPA, MongoDB) 
+       without changing the service code
+    -> unit testing is difficult as we can't mock JdbcAccountRepository easily   
+
+
+performance issues:
+------------------
+
+-> on each transfer, creating & discarding JdbcAccountRepository instance
+
+    -> resource ( cpu, memory) intensive
+    -> can lead to performance degradation under high load
+
+
+why these issues?
+------------------
+
+-> dependent itself manages the lifecycle of its dependency (JdbcAccountRepository)
+
+https://refactoring.guru/
+
+
+solution  ( fix the design issue)
+--------------------------
+don't create dependency instance in the dependent class (ImpsTransferService),
+get it from factory (AccountRepositoryFactory) instead
+
+
+best solution ( fix both design and performance issues)
+--------------------------
+don't create / get from factory directly on each transfer,
+inject by third party  ( Inversion of Control - IoC) 
+
+how to achieve IoC?
+--------------------------
+
+-> dependency injection  (DI)
+    -> constructor injection
+    -> method injection
+-> aspect-oriented programming (AOP)
+
+
+
+
+SOLID principles
+------------------
+
+-> Single Responsibility Principle (SRP)
+    - a class should have only one reason to change
+    - ImpsTransferService should only be responsible for transfer logic, not for managing repository instances
+-> Open/Closed Principle (OCP)
+    - software entities should be open for extension but closed for modification
+    - by using interfaces and dependency injection, we can extend functionality without modifying existing code
+-> Liskov Substitution Principle (LSP)
+    - objects of a superclass should be replaceable with objects of a subclass without affecting the correctness
+    - by programming to interfaces, we can ensure that different implementations of AccountRepository can be substituted
+-> Interface Segregation Principle (ISP)
+    - clients should not be forced to depend on interfaces they do not use
+    - by defining specific interfaces for different types of repositories, we can avoid forcing clients to depend on methods they don't need
+-> Dependency Inversion Principle (DIP)
+    - high-level modules should not depend on low-level modules; both should depend on abstractions
+    - by depending on interfaces rather than concrete implementations, we can achieve better modularity and flexibility    

@@ -11,7 +11,7 @@ import com.example.model.Account;
  * 
  */
 
-public class JdbcAccountRepository {
+public class JdbcAccountRepository implements AccountRepository {
 
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger("txr-service");
 
