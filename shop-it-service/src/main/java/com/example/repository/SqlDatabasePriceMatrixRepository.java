@@ -1,11 +1,13 @@
 package com.example.repository;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 // import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 // @Component("sqlDatabasePriceMatrix")
 @Repository("sqlDatabasePriceMatrix")
+@Scope("singleton")
 public class SqlDatabasePriceMatrixRepository implements PriceMatrix {
 
     private final JdbcTemplate jdbcTemplate;

@@ -9,13 +9,20 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 
+import com.example.config.DataSourceConfiguration;
 import com.example.service.OnlineOrderService;
 import com.example.service.OrderService;
 
 @Configuration
+@Import({
+	DataSourceConfiguration.class
+})
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "com.example")
+@EnableAspectJAutoProxy
 public class ShopItServiceApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
@@ -35,7 +42,11 @@ public class ShopItServiceApplication {
 		// ---------------------------------------------
 		OrderService onlineOrderService = context.getBean(OnlineOrderService.class);
 		
+		logger.info(onlineOrderService.getClass().getName());
+
 		List<String> cart1= List.of("1", "2", "3");
+		onlineOrderService.createOrder(cart1);
+		logger.info("");
 		onlineOrderService.createOrder(cart1);
 
 
