@@ -1,0 +1,53 @@
+package com.example;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+import com.example.order.OnlineOrderService;
+import com.example.order.OrderService;
+
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan(basePackages = "com.example")
+public class ShopItServiceApplication {
+
+	private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
+
+	public static void main(String[] args) {
+
+		logger.info("Starting ShopItServiceApplication...");
+		//---------------------------------------------
+		// init/ boot phase
+		// ---------------------------------------------
+		logger.info("-".repeat(40));
+		ConfigurableApplicationContext context;
+		context=SpringApplication.run(ShopItServiceApplication.class, args);
+		logger.info("-".repeat(40));
+		//---------------------------------------------
+		// run phase
+		// ---------------------------------------------
+		OrderService onlineOrderService = context.getBean(OnlineOrderService.class);
+		
+		List<String> cart1= List.of("1", "2", "3");
+		onlineOrderService.createOrder(cart1);
+
+
+		//---------------------------------------------
+		// shutdown phase
+		// ---------------------------------------------
+		logger.info("-".repeat(40));
+		context.close();
+		logger.info("ShopItServiceApplication shutting down...");
+		logger.info("-".repeat(40));
+
+		
+	}
+
+}
