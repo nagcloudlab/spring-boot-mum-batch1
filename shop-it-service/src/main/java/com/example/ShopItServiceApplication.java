@@ -10,8 +10,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.order.OnlineOrderService;
-import com.example.order.OrderService;
+import com.example.service.OnlineOrderService;
+import com.example.service.OrderService;
 
 @Configuration
 @EnableAutoConfiguration

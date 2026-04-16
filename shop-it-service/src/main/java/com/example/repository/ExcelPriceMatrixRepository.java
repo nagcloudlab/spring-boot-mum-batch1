@@ -2,7 +2,8 @@ package com.example.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * 
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Component;
  * 
  */
 
-@Component("excelPriceMatrix")
+// @Component("excelPriceMatrix")
+@Repository("excelPriceMatrix")
 public class ExcelPriceMatrixRepository implements PriceMatrix {
 
     private static final Logger logger = LoggerFactory.getLogger("shop-it-service");

@@ -1,9 +1,11 @@
 package com.example.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("sqlDatabasePriceMatrix")
+// @Component("sqlDatabasePriceMatrix")
+@Repository("sqlDatabasePriceMatrix")
 public class SqlDatabasePriceMatrixRepository implements PriceMatrix {
 
     private final JdbcTemplate jdbcTemplate;

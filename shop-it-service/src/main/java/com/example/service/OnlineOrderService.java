@@ -1,4 +1,4 @@
-package com.example.order;
+package com.example.service;
 
 import java.util.List;
 
@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.repository.PriceMatrix;
 
-@Component("onlineOrderService")
+// @Component("onlineOrderService")
+@Service("onlineOrderService")
 public class OnlineOrderService implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
