@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,30 +24,30 @@ import com.example.service.OrderService;
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "com.example")
 @EnableAspectJAutoProxy
-public class ShopItServiceApplication {
+@EntityScan(basePackages = "com.example.entity")
+public class ShopItApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
 
 	public static void main(String[] args) {
 
-		logger.info("Starting ShopItServiceApplication...");
+		logger.info("Starting ShopItApplication...");
 		//---------------------------------------------
 		// init/ boot phase
 		// ---------------------------------------------
 		logger.info("-".repeat(40));
 		ConfigurableApplicationContext context;
-		context=SpringApplication.run(ShopItServiceApplication.class, args);
+		context=SpringApplication.run(ShopItApplication.class, args);
 		logger.info("-".repeat(40));
 		//---------------------------------------------
 		// run phase
 		// ---------------------------------------------
 		OrderService onlineOrderService = context.getBean(OnlineOrderService.class);
-		
-		logger.info(onlineOrderService.getClass().getName());
 
 		List<String> cart1= List.of("1", "2", "3");
 		onlineOrderService.createOrder(cart1);
 		logger.info("");
+		List<String> cart2= List.of("1", "2");
 		onlineOrderService.createOrder(cart1);
 
 
@@ -55,7 +56,7 @@ public class ShopItServiceApplication {
 		// ---------------------------------------------
 		logger.info("-".repeat(40));
 		context.close();
-		logger.info("ShopItServiceApplication shutting down...");
+		logger.info("ShopItApplication shutting down...");
 		logger.info("-".repeat(40));
 
 		

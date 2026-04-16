@@ -59,7 +59,6 @@ public class OnlineOrderService implements OrderService {
         logger.info("Total price for the order: " + totalPrice);
         // create new order with the total price and cart items
         // persist the order to the database
-        // publish order created event to message queue
         // send order confirmation email to the customer
         logger.info("Order created successfully.");
 
