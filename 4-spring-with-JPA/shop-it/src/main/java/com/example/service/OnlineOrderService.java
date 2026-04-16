@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-// import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,6 @@ import com.example.repository.PriceMatrixRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
-// @Component("onlineOrderService")
 @Service("onlineOrderService")
 public class OnlineOrderService implements OrderService {
 
@@ -76,18 +74,4 @@ public class OnlineOrderService implements OrderService {
 
     }
 
-    public void m1(){
-        // - logging..
-        // - transaction with ACID properties
-        // - exception handling 
-        // - metrics collection for order processing time and success rate
-    }
-
-    public void m2(){
-        // - logging..
-        // - transaction with ACID properties
-        // - exception handling 
-        // - metrics collection for order processing time and success rate
-    }
-    
 }

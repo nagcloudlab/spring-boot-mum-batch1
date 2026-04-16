@@ -1,6 +1,6 @@
-
-
-
+-- db-schema.sql
+-- Reference schema for the price_matrix table used by Shop-It (Module 4).
+-- Spring Boot with JPA (ddl-auto=update) manages the 'orders' table automatically.
 
 create table if not exists price_matrix (
     id serial primary key,
@@ -14,5 +14,3 @@ insert into price_matrix (product_id, price) values
 (1, 19.99),
 (2, 29.99),
 (3, 39.99);
-
-select * from price_matrix;

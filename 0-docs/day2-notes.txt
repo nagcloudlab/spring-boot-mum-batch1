@@ -1,0 +1,46 @@
+
+Day 2 - Spring Core Concepts + JPA
+====================================
+
+Topics Covered
+--------------
+
+1. Dependency Injection (DI)
+   - Constructor injection with @Autowired
+   - @Qualifier for resolving multiple implementations
+   - @Service, @Repository stereotypes
+   - Interface-based design (PriceMatrix interface, two implementations)
+
+2. Bean Lifecycle
+   - @PostConstruct / @PreDestroy
+   - BeanPostProcessor (BPP) - wraps bean instances
+   - BeanFactoryPostProcessor (BFPP) - modifies bean definitions
+   - Application lifecycle: init → run → shutdown
+
+3. Aspect-Oriented Programming (AOP)
+   - Proxy pattern (standalone example: ProxyPatternExample.java)
+   - @Aspect, @Before, @Around advice
+   - Pointcut expressions: execution(* com.example.service.*.*(..))
+   - @Order for aspect ordering
+   - Cross-cutting concerns: metrics, transactions
+
+4. JPA Fundamentals (Pure Hibernate, no Spring)
+   - @Entity, @Table, @Id, @Column
+   - @OneToMany, @ManyToOne relationships
+   - @ElementCollection for embeddable collections
+   - EntityManagerFactory → EntityManager → Transaction pattern
+   - persistence.xml configuration
+   - hibernate.hbm2ddl.auto=update (auto DDL)
+
+5. Spring Data JPA
+   - JpaRepository<T, ID> — zero-implementation CRUD
+   - @Query for custom JPQL
+   - @Transactional (declarative transaction management)
+   - @EntityScan for entity discovery
+   - application.properties for JPA config
+   - Evolution: JdbcTemplate → EntityManager → JpaRepository
+
+Plan (remaining)
+-----------------
+- spring-web (REST controllers)
+- spring-security

@@ -2,6 +2,11 @@ package com.example.config;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * BeanPostProcessor (BPP) - intercepts every bean AFTER instantiation,
+ * before and after the init-method (@PostConstruct) callback.
+ * Disabled (@Component commented out) to reduce log noise; uncomment to observe the lifecycle.
+ */
 // @Component
 public class BPP implements org.springframework.beans.factory.config.BeanPostProcessor {
 

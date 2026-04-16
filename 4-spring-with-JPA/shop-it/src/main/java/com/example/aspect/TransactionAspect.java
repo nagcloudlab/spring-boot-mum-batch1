@@ -34,33 +34,24 @@ after -> close transaction resources ( e.g connection)
 
 @Component
 @Aspect
-@Order(2) // Set the order of this aspect if you have multiple aspects
+@Order(2)
 public class TransactionAspect {
 
     private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
 
+    // --- Alternative approach: individual advice methods instead of @Around ---
     // @Before("execution(* com.example.service.OnlineOrderService.createOrder(..))")
-    // public void startTxn() {
-    //     logger.info(">>>>>>>Transaction started.<<<<<<<");
-    // }
-
+    // public void startTxn() { logger.info(">>>>>>>Transaction started.<<<<<<<"); }
+    //
     // @AfterReturning("execution(* com.example.service.OnlineOrderService.createOrder(..))")
-    // public void commitTxn() {
-    //     logger.info(">>>>>>>Transaction committed successfully.<<<<<<<");
-    // }
-
+    // public void commitTxn() { logger.info(">>>>>>>Transaction committed.<<<<<<<"); }
+    //
     // @AfterThrowing("execution(* com.example.service.OnlineOrderService.createOrder(..))")
-    // public void rollbackTxn() {
-    //     logger.info(">>>>>>>Transaction rolled back due to an error.<<<<<<<");
-    // }
-
+    // public void rollbackTxn() { logger.info(">>>>>>>Transaction rolled back.<<<<<<<"); }
+    //
     // @After("execution(* com.example.service.OnlineOrderService.createOrder(..))")
-    // public void closeTxnResources() {
-    //     logger.info(">>>>>>>Transaction resources closed.<<<<<<<");
-    // }
-
-
-    // TransactionManager -> DataSource -> Connection -> commit/rollback/close
+    // public void closeTxnResources() { logger.info(">>>>>>>Transaction resources closed.<<<<<<<"); }
+    // -------------------------------------------------------------------------
 
     @Around("execution(* com.example.service.OnlineOrderService.createOrder(..))")
     public Object manageTransaction(ProceedingJoinPoint joinPoint) throws Throwable {

@@ -1,0 +1,17 @@
+
+Spring Boot Training - Mumbai Batch 1
+======================================
+
+Day 1: 1-why-spring-framework
+------------------------------
+transfer-service-v1 : plain Java (tight coupling)
+transfer-service-v2 : SOLID principles (interfaces, factory, constructor injection)
+transfer-service-v3 : Spring IoC (component scanning, stereotypes, @Configuration)
+transfer-service-v4 : Spring JDBC (JdbcTemplate, @Transactional, transaction management)
+transfer-service-v5 : Spring Boot (auto-configuration, starters, application.properties)
+
+Day 2: Spring Core + JPA
+------------------------------
+2-spring-di-and-aop/shop-it  : DI (@Autowired, @Qualifier), AOP (@Aspect, @Before, @Around), Bean Lifecycle
+3-play-with-jpa              : Pure JPA/Hibernate (entities, relationships, EntityManager, persistence.xml)
+4-spring-with-jpa/shop-it   : Spring Data JPA (JpaRepository, @Query, @Transactional, @Entity)

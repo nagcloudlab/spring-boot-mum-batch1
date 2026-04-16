@@ -17,7 +17,16 @@ import com.example.config.DataSourceConfiguration;
 import com.example.service.OnlineOrderService;
 import com.example.service.OrderService;
 
+/**
+ * Main entry point for the Shop-It application (Module 4).
+ * Demonstrates Spring with JPA: entity mapping, Spring Data repositories,
+ * and transaction management using @Transactional.
+ */
 @Configuration
+// NOTE: @Import of DataSourceConfiguration is redundant here because it is already
+// a @Configuration class that would be picked up by @ComponentScan. We import it
+// explicitly for teaching purposes -- to show how manual DataSource configuration
+// can override Spring Boot's auto-configured DataSource.
 @Import({
 	DataSourceConfiguration.class
 })

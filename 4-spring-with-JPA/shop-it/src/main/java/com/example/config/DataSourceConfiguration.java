@@ -6,6 +6,13 @@ import org.springframework.context.annotation.Configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 
+/**
+ * Explicit DataSource configuration using HikariCP.
+ * Demonstrates how to manually configure a DataSource bean instead of relying
+ * on Spring Boot's auto-configuration (spring.datasource.* properties would
+ * normally create one automatically). This @Configuration is active, so it
+ * overrides the auto-configured DataSource.
+ */
 @Configuration
 public class DataSourceConfiguration {
 

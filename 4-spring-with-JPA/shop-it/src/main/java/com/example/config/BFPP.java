@@ -2,6 +2,11 @@ package com.example.config;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * BeanFactoryPostProcessor (BFPP) - runs BEFORE any bean is created.
+ * Can inspect and modify bean definitions (metadata), not bean instances.
+ * Disabled (@Component commented out) to reduce log noise; uncomment to observe the lifecycle.
+ */
 // @Component
 public class BFPP implements org.springframework.beans.factory.config.BeanFactoryPostProcessor {
 

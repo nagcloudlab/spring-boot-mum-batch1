@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-@Order(1) // Set the order of this aspect if you have multiple aspects
+@Order(1)
 public class CountMetricAspect {
 
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CountMetricAspect.class);
@@ -18,8 +18,6 @@ public class CountMetricAspect {
 
     @Before("execution(* com.example.service.*.*(..))")
     public void countMethodExecution(JoinPoint joinPoint) {
-        // Here you can implement the logic to count method executions
-        // For example, you can use a counter or log the execution
         logger.info("Method executed, counting metric...");
         String methodName = joinPoint.getSignature().toShortString();
         methodExecutionCount.merge(methodName, 1, Integer::sum);
