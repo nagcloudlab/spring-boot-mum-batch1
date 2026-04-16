@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 // import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.repository.PriceMatrix;
+import com.example.entity.Order;
+import com.example.entity.OrderStatus;
+import com.example.repository.OrderRepository;
+import com.example.repository.PriceMatrixRepository;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -20,22 +25,17 @@ public class OnlineOrderService implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger("shop-it-service");
 
-    // @Autowired
-    // @Qualifier("sqlDatabasePriceMatrix")
-    private PriceMatrix priceMatrix;
+    private PriceMatrixRepository priceMatrixRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    public OnlineOrderService(@Qualifier("sqlDatabasePriceMatrix") PriceMatrix priceMatrix) {
-        this.priceMatrix = priceMatrix;
-        logger.info("OnlineOrderService initialized with PriceMatrix.");
+    public OnlineOrderService(@Qualifier("priceMatrixRepository") PriceMatrixRepository priceMatrixRepository,
+                              @Qualifier("orderRepository") OrderRepository orderRepository) {
+        this.priceMatrixRepository = priceMatrixRepository;
+        this.orderRepository = orderRepository;
+        logger.info("OnlineOrderService initialized with PriceMatrixRepository and OrderRepository.");
     }
 
-    // @Autowired(required = false)
-    // @Qualifier("nosqlDatabasePriceMatrix")
-    // public void setPriceMatrix(PriceMatrix priceMatrix) {
-    //     this.priceMatrix = priceMatrix;
-    //     logger.info("PriceMatrix set for OnlineOrderService.");
-    // }
 
     @PostConstruct
     public void init() {
@@ -47,18 +47,30 @@ public class OnlineOrderService implements OrderService {
         logger.info("OnlineOrderService cleanup method called.");
     }
 
+    @Transactional(
+        rollbackFor = RuntimeException.class,
+        noRollbackFor = IllegalArgumentException.class,
+        isolation = org.springframework.transaction.annotation.Isolation.READ_COMMITTED,
+        timeout = 30,
+        propagation = org.springframework.transaction.annotation.Propagation.REQUIRED
+    )
     @Override
     public void createOrder(List<String> cart) {
         logger.info("Creating order for cart: " + cart);
-        double totalPrice = 0.0;
+        double amount = 0.0;
         for (String item : cart) {
             // Simulate price retrieval for each item
-            double price = priceMatrix.getPrice(item);
-            totalPrice += price;
+            double price = priceMatrixRepository.getPrice(Integer.parseInt(item)); // db-call
+            amount += price;
         }
-        logger.info("Total price for the order: " + totalPrice);
+        logger.info("Total price for the order: " + amount);
         // create new order with the total price and cart items
+        Order order = new Order();
+        order.setAmount(amount);
+        order.setOrderDate(new Date());
+        order.setStatus(OrderStatus.PENDING);
         // persist the order to the database
+        orderRepository.save(order); // db-call
         // send order confirmation email to the customer
         logger.info("Order created successfully.");
 

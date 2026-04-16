@@ -48,7 +48,7 @@ public class ShopItApplication {
 		onlineOrderService.createOrder(cart1);
 		logger.info("");
 		List<String> cart2= List.of("1", "2");
-		onlineOrderService.createOrder(cart1);
+		onlineOrderService.createOrder(cart2);
 
 
 		//---------------------------------------------
