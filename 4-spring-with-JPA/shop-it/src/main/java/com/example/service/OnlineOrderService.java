@@ -60,9 +60,6 @@ public class OnlineOrderService implements OrderService {
         // create new order with the total price and cart items
         // persist the order to the database
         // publish order created event to message queue
-        // if(totalPrice > 10) {
-        //     throw new RuntimeException("Order total exceeds limit.");
-        // }
         // send order confirmation email to the customer
         logger.info("Order created successfully.");
 
