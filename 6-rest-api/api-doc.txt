@@ -1,0 +1,30 @@
+https://nagcloudlab.notion.site/API-2c45bab9bf878080b2d9ec09a8cc0cc9
+
+
+
+---------------------------------------
+design REST api
+---------------------------------------
+
+e.g todos-service
+
+step-1: identify the resource(s) 
+        - todo
+        - user
+step-2: assign unique URI to each resource
+        - /todos
+        - /users
+step-3: identify relationships between resources
+        - a user can have multiple todos
+        - a todo belongs to one user
+        - /users/{userId}/todos - get all todos for a specific user
+step-4: identify read/write operations for each resource
+        - GET /todos - get all todos
+        - GET /todos/{id} - get a specific todo
+        - POST /todos - create a new todo
+        - PUT /todos/{id} - update a specific todo
+        - DELETE /todos/{id} - delete a specific todo
+step-5: indentify resource representations
+        - JSON ( default)
+        - XML
+        - HTML

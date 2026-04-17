@@ -1,0 +1,20 @@
+
+
+
+
+curl -X GET http://localhost:8080/todos | jq
+
+curl -X GET -H "Accept: application/json" http://localhost:8080/todos | jq
+
+curl -v -X GET -H "Accept: application/xml" http://localhost:8080/todos | jq
+
+curl -v -X GET http://localhost:8080/todos?status=active | jq
+
+curl -v -X GET http://localhost:8080/todos/1 | jq
+
+curl -v -X GET http://localhost:8080/todos/4 | jq
+
+
+curl -v -X POST http://localhost:8080/todos \
+    -H "Content-Type: application/json" \
+    -d '{"title": "Learn Spring Boot"}' | jq
