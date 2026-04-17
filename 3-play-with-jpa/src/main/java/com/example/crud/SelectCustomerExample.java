@@ -1,4 +1,6 @@
-package com.example;
+package com.example.crud;
+
+import com.example.entity.Customer;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -12,11 +14,15 @@ public class SelectCustomerExample {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin(); // Start transaction
-        
+
         // IN JPA, we can select the data 3 ways:
-        // way-1: find() method -> it is used to find an entity by its primary key. It returns the entity object if found, otherwise it returns null.
-        // way-2: JPQL (Java Persistence Query Language) -> it is a query language that is used to query the database. It is similar to SQL but it is object-oriented.
-        // way-3: Criteria API -> it is a type-safe query language that is used to query the database. It is similar to JPQL but it is type-safe.
+        // way-1: find() method -> it is used to find an entity by its primary key. It
+        // returns the entity object if found, otherwise it returns null.
+        // way-2: JPQL (Java Persistence Query Language) -> it is a query language that
+        // is used to query the database. It is similar to SQL but it is
+        // object-oriented.
+        // way-3: Criteria API -> it is a type-safe query language that is used to query
+        // the database. It is similar to JPQL but it is type-safe.
 
         Customer customer = em.find(Customer.class, 1);
         System.out.println(customer);
@@ -27,5 +33,5 @@ public class SelectCustomerExample {
         emf.close();
 
     }
-    
+
 }

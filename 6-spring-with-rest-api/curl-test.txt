@@ -18,3 +18,11 @@ curl -v -X GET http://localhost:8080/todos/4 | jq
 curl -v -X POST http://localhost:8080/todos \
     -H "Content-Type: application/json" \
     -d '{"title": "Learn Spring Boot"}' | jq
+
+
+curl -v -X POST http://localhost:8080/transfer \
+    -H "Content-Type: application/json" \
+    -d '{"fromAccountNumber": "1", "toAccountNumber": "2", "amount": 10.0}' | jq
+
+
+curl -v -X GET http://localhost:8080/transfer-history | jq

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.entity;
 
 import java.util.Date;
 import java.util.List;
@@ -33,22 +33,20 @@ public class Customer {
     @Column(name = "customer_gender")
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
-    @Column(name = "customer_birth_date")  
-    @Temporal(jakarta.persistence.TemporalType.DATE) 
+    @Column(name = "customer_birth_date")
+    @Temporal(jakarta.persistence.TemporalType.DATE)
     private Date birthDate;
     @Column(name = "customer_profile")
     @Lob
     private String profile;
     @Column(name = "customer_profile_picture")
     @Lob
-    private byte [] profilePicture;
+    private byte[] profilePicture;
     @ElementCollection
     @CollectionTable(name = "customer_addresses", joinColumns = @jakarta.persistence.JoinColumn(name = "customer_id"))
     private List<Address> addressList;
 
-    @OneToMany(mappedBy = "customer",cascade = jakarta.persistence.CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = jakarta.persistence.CascadeType.ALL)
     private List<Order> orderList;
 
-
-    
 }

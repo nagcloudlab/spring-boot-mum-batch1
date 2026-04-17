@@ -1,6 +1,10 @@
-package com.example;
+package com.example.crud;
 
 import java.util.List;
+
+import com.example.entity.Address;
+import com.example.entity.Customer;
+import com.example.entity.Gender;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -17,7 +21,7 @@ public class InsertCustomerExample {
         customer.setGender(Gender.MALE);
         customer.setBirthDate(new java.util.Date());
         customer.setProfile("This is A's profile");
-        customer.setProfilePicture(new byte[] {1, 2, 3, 4, 5});
+        customer.setProfilePicture(new byte[] { 1, 2, 3, 4, 5 });
 
         Address address1 = new Address("123 Main St", "Anytown", "Anystate", "12345");
         Address address2 = new Address("456 Elm St", "Othertown", "Otherstate", "67890");
@@ -34,5 +38,5 @@ public class InsertCustomerExample {
         emf.close();
 
     }
-    
+
 }

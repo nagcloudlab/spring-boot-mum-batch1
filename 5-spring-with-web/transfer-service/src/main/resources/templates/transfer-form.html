@@ -4,39 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>transfer-service</title>
+    <title>New Transfer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { background-color: #f0f2f5; }
+    </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="display-1">transfer-service</div>
-        <hr />
-        <a class="btn btn-primary" href="transfer">transfer</a>
-        &nbsp;&nbsp;
-        <a class="btn btn-primary" href="transfer-history">transfer-history</a>
-        <hr />
-        <hr />
-        <div class="row">
-            <div class="col-6">
-                <form action="/transfer" method="post">
-                    <div class="mb-3">
-                        <label for="fromAccountNumber" class="form-label">From Account</label>
-                        <input type="text" class="form-control" id="fromAccountNumber" name="fromAccountNumber"
-                            required>
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-3">
+        <a class="navbar-brand fw-bold" href="/"><i class="bi bi-bank2 me-2"></i>Transfer Service</a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="transfer">Transfer</a></li>
+            <li class="nav-item"><a class="nav-link" href="transfer-history">History</a></li>
+        </ul>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-arrow-left-right me-2"></i>New Transfer</h5>
                     </div>
-                    <div class="mb-3">
-                        <label for="toAccountNumber" class="form-label">To Account</label>
-                        <input type="text" class="form-control" id="toAccountNumber" name="toAccountNumber" required>
+                    <div class="card-body p-4">
+                        <form action="/transfer" method="post">
+                            <div class="mb-3">
+                                <label for="fromAccountNumber" class="form-label fw-semibold">
+                                    <i class="bi bi-box-arrow-right text-danger me-1"></i>From Account
+                                </label>
+                                <input type="text" class="form-control form-control-lg" id="fromAccountNumber"
+                                    name="fromAccountNumber" placeholder="Enter source account number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="toAccountNumber" class="form-label fw-semibold">
+                                    <i class="bi bi-box-arrow-in-right text-success me-1"></i>To Account
+                                </label>
+                                <input type="text" class="form-control form-control-lg" id="toAccountNumber"
+                                    name="toAccountNumber" placeholder="Enter destination account number" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="amount" class="form-label fw-semibold">
+                                    <i class="bi bi-currency-rupee text-warning me-1"></i>Amount
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text">&#8377;</span>
+                                    <input type="number" step="0.01" min="0.01" class="form-control" id="amount"
+                                        name="amount" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-send me-2"></i>Submit Transfer
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="amount" class="form-label">Amount</label>
-                        <input type="number" step="0.01" class="form-control" id="amount" name="amount" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

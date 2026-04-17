@@ -1,4 +1,7 @@
-package com.example;
+package com.example.crud;
+
+import com.example.entity.Customer;
+import com.example.entity.Order;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -25,5 +28,5 @@ public class InsertOrderExample {
         emf.close();
 
     }
-    
+
 }

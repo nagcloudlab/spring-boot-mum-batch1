@@ -1,0 +1,20 @@
+
+spring:
+  application:
+    name: greeting-service
+
+greet:
+  message: m2
+
+service:
+    branch: jogeshwari
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+greet:
+  message: m2-test
